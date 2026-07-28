@@ -51,5 +51,7 @@ Python 3, pandas, numpy, openpyxl (for reading/writing the Excel file).
 - Clean, consistent data types throughout.
 
 ## Files
-- `data_cleaning.ipynb` — full cleaning code + answers to the project's analysis questions, plus extra questions.
-- `README.md` — this file.
+- `cleaned_dataset.xlsx` - the cleaned dataset.
+- `data_cleaning.ipynb` - full cleaning code + answers to the project's analysis questions, plus extra questions.
+- `README.md` - this file.
+
