@@ -1,66 +1,120 @@
-# StudyBuild Project 01 — Data Cleaning
+# StudyBuild Project 01 – Data Cleaning
 
-Welcome to the first StudyBuild project.
+Welcome to the first project of the **StudyBuild Community**.
 
-In this project, participants will work on an e-commerce dataset and prepare it for future analysis and machine learning tasks.
+In this project, participants will clean and prepare a real-world dataset for further analysis and machine learning tasks.
 
-## Project Objective
+---
 
-The main objective is to identify and fix common data-quality problems, including:
+# Project Objective
+
+The objective of this project is to practice the complete data cleaning workflow using a real dataset.
+
+Participants should identify and resolve common data quality issues such as:
 
 - Missing values
 - Duplicate records
 - Incorrect data types
-- Inconsistent text values
-- Extra spaces
-- Incorrect date formats
-- Invalid or illogical values
-- Outliers
-- Inconsistent column names
+- Inconsistent formatting
+- Outliers (if necessary)
+- Invalid values
+- Text inconsistencies
 
-## Dataset
+---
 
-The dataset is available in the `dataset` folder.
+# Dataset
 
-Participants should first inspect the original dataset and avoid directly modifying the original file.
+The dataset is available inside the `dataset` folder.
 
-## Project Tasks
+---
 
-1. Load and inspect the dataset.
-2. Check the shape, columns and data types.
-3. Identify missing values.
-4. Detect duplicate records.
-5. Correct incorrect data types.
-6. Standardise text and categorical values.
-7. Clean column names.
-8. Check numerical values and possible outliers.
-9. Check relationships between columns.
-10. Save the cleaned dataset.
-11. Document all cleaning decisions.
+# Repository Structure
 
-## Expected Deliverables
-
-Each submission should preferably include:
-
-- Jupyter Notebook or analysis script
-- Cleaned dataset
-- README file explaining the cleaning process
-- Optional PDF report or visualisations
-
-## Repository Structure
-
-```text
+```
 studybuild-data-cleaning-01/
 │
 ├── dataset/
-│   └── original_dataset.csv
+│   └── First Dataset.xlsx
 │
 ├── submissions/
-│   └── Project01-GitHubUsername/
-│       ├── notebook/
-│       ├── data/
-│       └── README.md
+│   ├── username1/
+│   ├── username2/
+│   └── ...
 │
-├── LICENSE
-└── README.md
+├── README.md
+└── LICENSE
+```
 
+---
+
+# Submission Instructions
+
+1. Fork this repository.
+2. Create your own folder inside the `submissions` directory.
+
+Example:
+
+```
+submissions/your-github-username/
+```
+
+3. Upload your project files inside your folder.
+
+Example:
+
+```
+submissions/your-github-username/
+│
+├── cleaned_dataset.xlsx
+├── data_cleaning.ipynb
+├── README.md
+└── report.pdf (optional)
+```
+
+4. Commit your changes.
+5. Create a Pull Request to this repository.
+
+---
+
+# Rules
+
+- Do NOT modify other participants' folders.
+- Do NOT modify the repository structure.
+- Upload files only inside your own folder.
+- Keep filenames clear and organized.
+
+---
+
+# Evaluation Criteria
+
+Projects will be evaluated based on:
+
+- Data cleaning quality
+- Code quality
+- Documentation
+- Repository organization
+- Reproducibility
+
+---
+
+# Recommended Tools
+
+You may use any of the following:
+
+- Python
+- Google Colab
+- Jupyter Notebook
+- R
+- Excel (for simple tasks)
+
+---
+
+# Maintainer
+
+**Atefe Asadi**
+
+Founder of **StudyBuild Community**
+
+---
+
+Happy Learning 🚀
