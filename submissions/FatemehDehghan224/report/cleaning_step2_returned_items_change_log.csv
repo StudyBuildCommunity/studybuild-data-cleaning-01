@@ -1,0 +1,7 @@
+﻿step,excel_row_before_step1_duplicate_removal,customer_id,purchase_count,old_returned_items,new_returned_items,reason
+cap_returned_items_to_purchase_count,9,1008,3,8,3,"returned_items cannot be greater than purchase_count, so it was capped to the maximum valid value."
+cap_returned_items_to_purchase_count,16,1015,3,8,3,"returned_items cannot be greater than purchase_count, so it was capped to the maximum valid value."
+cap_returned_items_to_purchase_count,25,1024,0,2,0,"returned_items cannot be greater than purchase_count, so it was capped to the maximum valid value."
+cap_returned_items_to_purchase_count,30,1029,2,4,2,"returned_items cannot be greater than purchase_count, so it was capped to the maximum valid value."
+cap_returned_items_to_purchase_count,38,1037,1,7,1,"returned_items cannot be greater than purchase_count, so it was capped to the maximum valid value."
+cap_returned_items_to_purchase_count,57,1056,1,4,1,"returned_items cannot be greater than purchase_count, so it was capped to the maximum valid value."
