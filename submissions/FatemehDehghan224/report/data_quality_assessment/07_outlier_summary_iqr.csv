@@ -1,8 +1,0 @@
-﻿column,q1,q3,iqr,lower_bound,upper_bound,outlier_count,outlier_percent
-age,31.75,58.0,26.25,-7.625,97.375,0,0.0
-purchase_count,10.75,24.5,13.75,-9.875,45.125,0,0.0
-avg_order_value,108.1375,324.1075,215.97,-215.8175,648.0625,0,0.0
-total_spending,1167.035,4213.1175,3046.0825,-3402.0888,8782.2413,5,8.33
-last_purchase_days,134.25,273.75,139.5,-75.0,483.0,0,0.0
-returned_items,1.0,6.0,5.0,-6.5,13.5,0,0.0
-satisfaction_score,2.0,4.0,2.0,-1.0,7.0,0,0.0

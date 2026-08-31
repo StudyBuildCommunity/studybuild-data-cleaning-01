@@ -9,33 +9,18 @@
 ```text
 project-01-data-cleaning-FatemehDehghan224/
 ├── clean_data_code/
-│   ├── data_quality_assessment.py
-│   ├── clean_missing_duplicates.py
-│   ├── clean_returned_items.py
-│   ├── clean_total_spending_outliers.py
-│   └── clean_age_finalize.py
+│   └── customer_data_cleaning_pipeline.ipynb
 ├── data/
-│   ├── raw_dataset_FatemehDehghan224.xlsx
-│   ├── cleaned_dataset_step1_FatemehDehghan224.xlsx
-│   ├── cleaned_dataset_step2_FatemehDehghan224.xlsx
-│   ├── cleaned_dataset_step3_FatemehDehghan224.xlsx
-│   └── cleaned_dataset_FatemehDehghan224.xlsx
-├── report/
-│   ├── data_cleaning_documentation.md
-│   ├── cleaning_step1_change_log.csv
-│   ├── cleaning_step2_returned_items_change_log.csv
-│   ├── cleaning_step3_total_spending_change_log.csv
-│   ├── cleaning_step3_valid_total_spending_outliers.csv
-│   └── cleaning_step4_age_change_log.csv
+│   └── raw_dataset_FatemehDehghan224.xlsx
 ├── requirements.txt
 └── README.md
 ```
 
-## فایل های اصلی خروجی
+## ورودی و خروجی
 
-- دیتاست خام نگهداری شده: `data/raw_dataset_FatemehDehghan224.xlsx`
-- دیتاست نهایی تمیز شده: `data/cleaned_dataset_FatemehDehghan224.xlsx`
-- مستندات کامل پاکسازی: `report/data_cleaning_documentation.md`
+- تنها فایل ورودی: `data/raw_dataset_FatemehDehghan224.xlsx`
+- دیتاست تمیز شده، جدول های ارزیابی، لاگ تغییرات، نمودارها و اعتبارسنجی نهایی همگی داخل نوت بوک نمایش داده می شوند.
+- اجرای نوت بوک هیچ فایل Excel، CSV، Markdown یا تصویر جداگانه ای تولید نمی کند.
 
 ## ابزارها و کتابخانه ها
 
@@ -43,6 +28,7 @@ project-01-data-cleaning-FatemehDehghan224/
 - pandas
 - openpyxl
 - matplotlib
+- JupyterLab
 
 نصب وابستگی ها:
 
@@ -50,15 +36,15 @@ project-01-data-cleaning-FatemehDehghan224/
 python -m pip install -r requirements.txt
 ```
 
-## ترتیب اجرای کدها
+## روش اجرای پیشنهادی
+
+نوت بوک زیر workflow اصلی و یکپارچه پروژه است و تمام مراحل شناسایی داده، ارزیابی کیفیت، پاکسازی، ثبت تغییرات و اعتبارسنجی نهایی را به ترتیب اجرا می کند:
 
 ```powershell
-python clean_data_code\data_quality_assessment.py
-python clean_data_code\clean_missing_duplicates.py
-python clean_data_code\clean_returned_items.py
-python clean_data_code\clean_total_spending_outliers.py
-python clean_data_code\clean_age_finalize.py
+jupyter lab clean_data_code\customer_data_cleaning_pipeline.ipynb
 ```
+
+پس از باز شدن نوت بوک، گزینه **Run All Cells** را اجرا و سپس خود نوت بوک را ذخیره کنید تا خروجی سلول ها داخل همان فایل باقی بماند.
 
 ## مشکلات شناسایی شده و تصمیم های پاکسازی
 
@@ -74,10 +60,10 @@ python clean_data_code\clean_age_finalize.py
 برای `total_spending` مقدار خالی با فرمول زیر محاسبه شد:
 
 ```text
-total_spending = purchase_count * avg_order_value
+total_spending = round(purchase_count * avg_order_value, 3)
 ```
 
-دلیل این تصمیم این بود که `total_spending` یک ستون مشتق شده است و محاسبه مستقیم آن از ستون های مرتبط، دقیق تر از جایگزینی آماری است.
+دلیل این تصمیم این بود که `total_spending` یک ستون مشتق شده است و محاسبه مستقیم آن از ستون های مرتبط، دقیق تر از جایگزینی آماری است. نتیجه با دقت سه رقم اعشار محاسبه می شود.
 
 ### 2. Duplicate Records
 
@@ -103,18 +89,28 @@ if returned_items > purchase_count:
 برای هر outlier، مقدار `total_spending` با فرمول زیر کنترل شد:
 
 ```text
-total_spending = purchase_count * avg_order_value
+total_spending = round(purchase_count * avg_order_value, 3)
 ```
 
 فقط یک مقدار خطای واقعی داشت:
 
 - `customer_id = 1030`
 - مقدار قبلی `total_spending = 25000`
-- مقدار اصلاح شده `total_spending = 4079.14`
+- مقدار اصلاح شده `total_spending = 4079.140`
 
 outlierهای معتبر که با فرمول سازگار بودند، بدون تغییر نگه داشته شدند.
 
-### 5. سن غیرمنطقی
+### 5. استانداردسازی دقت `total_spending`
+
+مقادیر ستون `total_spending` باید در تمام مراحل پیش پردازش با دقت سه رقم اعشار محاسبه و نمایش داده شوند:
+
+```text
+total_spending = round(total_spending, 3)
+```
+
+ستون همچنان از نوع عددی نگه داشته می شود تا برای محاسبات، تجمیع و مدل سازی قابل استفاده باشد. از آنجا که صفرهای انتهایی بخشی از مقدار عددی ذخیره شده نیستند، در نمایش نوت بوک از قالب `.3f` استفاده می شود؛ برای مثال مقدار عددی `2066.01` به صورت `2066.010` نمایش داده می شود. تابع `standardize_total_spending_precision` این قانون را اجرا می کند و اگر در دیتاست های آینده مقداری بیش از سه رقم اعشار داشته باشد، تغییر آن را در audit log ثبت می کند.
+
+### 6. سن غیرمنطقی
 
 یک مقدار سن غیرمنطقی وجود داشت:
 
@@ -137,6 +133,7 @@ if age < 13 or age > 100:
 - رکورد duplicate کامل وجود ندارد.
 - مقدار `returned_items > purchase_count` وجود ندارد.
 - ناسازگاری فرمولی در `total_spending` وجود ندارد.
+- تمام محاسبات و نمایش های `total_spending` از دقت سه رقم اعشار استفاده می کنند.
 - تاریخ های `signup_date` قابل تبدیل به تاریخ هستند.
 - ناسازگاری آشکار متنی مثل فاصله اضافی یا typo candidate پیدا نشد.
 - outlierهای معتبر حفظ شدند و فقط خطاهای واقعی اصلاح شدند.
@@ -147,8 +144,9 @@ if age < 13 or age > 100:
 - مقدارهای missing در `age` و `total_spending` اصلاح شدند.
 - مقدارهای غیرمنطقی در `returned_items` اصلاح شدند.
 - خطای محاسباتی `total_spending` اصلاح شد.
+- دقت عددی و نحوه نمایش `total_spending` روی سه رقم اعشار استاندارد شد.
 - مقدار سن غیرمنطقی اصلاح شد.
-- دیتاست خام در فایل جداگانه نگهداری شد و فایل نهایی با نام استاندارد پروژه ساخته شد.
+- دیتاست خام بدون تغییر نگهداری می شود و دیتاست نهایی با نام متغیر `final_df` داخل نوت بوک نمایش داده می شود.
 
 ## نکته درباره outlierها
 

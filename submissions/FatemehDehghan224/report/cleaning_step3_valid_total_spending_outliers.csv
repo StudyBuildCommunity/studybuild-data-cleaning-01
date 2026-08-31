@@ -1,5 +1,0 @@
-﻿excel_row_after_step2,customer_id,first_name,gender,age,city,province,signup_date,membership_tier,purchase_count,avg_order_value,total_spending,last_purchase_days,payment_method,device,discount_used,returned_items,satisfaction_score,expected_total_spending,formula_difference,iqr_lower_bound,iqr_upper_bound
-10,1009,Kimia,M,61,Karaj,Alborz,2021-05-14,Silver,34,341.63,11615.42,232,Card,Web,No,8,2,11615.42,0.0,-4120.64,9979.82
-13,1012,Arash,F,51,Mashhad,Khorasan,2023-07-22,Gold,27,434.5,11731.5,224,Online Wallet,iPhone,Yes,3,2,11731.5,0.0,-4120.64,9979.82
-45,1044,Mina,M,64,Shiraz,Fars,2024-07-27,Gold,33,434.98,14354.34,165,Card,Android,No,7,2,14354.34,0.0,-4120.64,9979.82
-58,1057,Maryam,M,58,Ahvaz,Khuzestan,2024-06-11,Bronze,31,436.54,13532.74,82,Cash,iPhone,No,4,4,13532.74,0.0,-4120.64,9979.82

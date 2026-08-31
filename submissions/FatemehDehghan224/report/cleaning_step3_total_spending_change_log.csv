@@ -1,2 +1,0 @@
-﻿step,excel_row_after_step2,customer_id,purchase_count,avg_order_value,old_total_spending,new_total_spending,formula,reason
-correct_total_spending_formula_error,31,1030,26,156.89,25000.0,4079.14,purchase_count * avg_order_value,"total_spending was an outlier and did not match the derived formula, so it was recalculated."

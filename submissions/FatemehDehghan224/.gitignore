@@ -5,6 +5,7 @@ __pycache__/
 .codex_deps/
 .matplotlib_cache/
 .pytest_cache/
+anaconda_projects/
 ~$*.xlsx
 .DS_Store
 Thumbs.db
