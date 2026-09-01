@@ -1,31 +1,38 @@
 # Project 01 - Data Cleaning
 
-## معرفی پروژه
+## Overview
 
-این پروژه مربوط به مرحله اول پاکسازی داده برای یک دیتاست مشتریان فروشگاه آنلاین است. هدف این مرحله بررسی کیفیت داده، شناسایی مشکلات، اصلاح موارد قابل دفاع، مستندسازی تصمیم ها و تولید یک نسخه تمیز و آماده تحلیل از دیتاست است.
+This project performs the first-stage data cleaning workflow for an online-store customer dataset. The goal is to assess data quality, identify inconsistencies, apply defensible corrections, document each cleaning decision, and prepare a clean dataset for later analysis or modeling.
 
-## ساختار فایل ها
+The full workflow is implemented in a single Jupyter notebook. The raw Excel workbook is kept unchanged, while the cleaned dataset is exported to Excel after final validation. Quality checks, audit logs, validation tables, and charts are displayed inside the notebook.
+
+## Repository Structure
 
 ```text
 project-01-data-cleaning-FatemehDehghan224/
-├── clean_data_code/
-│   ├── customer_data_cleaning_pipeline.ipynb
-│   └── name_gender_mapping.json
-├── data/
-│   └── raw_dataset_FatemehDehghan224.xlsx
-├── requirements.txt
-└── README.md
++-- clean_data_code/
+|   +-- customer_data_cleaning_pipeline.ipynb
+|   +-- name_gender_mapping.json
++-- data/
+|   +-- raw_dataset_FatemehDehghan224.xlsx
+|   +-- cleaned_dataset_FatemehDehghan224.xlsx
++-- requirements.txt
++-- README.md
 ```
 
-## ورودی و خروجی
+## Inputs and Outputs
 
-- فایل داده خام: `data/raw_dataset_FatemehDehghan224.xlsx`
-- فایل قواعد نام و جنسیت: `clean_data_code/name_gender_mapping.json`
-- قواعد شهر و استان داخل نوت بوک و در متغیرهای `CITY_PROVINCE_REFERENCE`، `CITY_ALIASES` و `PROVINCE_ALIASES` نگهداری می شوند.
-- دیتاست تمیز شده، جدول های ارزیابی، لاگ تغییرات، نمودارها و اعتبارسنجی نهایی همگی داخل نوت بوک نمایش داده می شوند.
-- اجرای نوت بوک هیچ فایل Excel، CSV، Markdown یا تصویر جداگانه ای تولید نمی کند.
+- Raw dataset: `data/raw_dataset_FatemehDehghan224.xlsx`
+- Name-to-gender reference file: `clean_data_code/name_gender_mapping.json`
+- City and province reference rules are defined inside the notebook through `CITY_PROVINCE_REFERENCE`, `CITY_ALIASES`, and `PROVINCE_ALIASES`.
+- The final cleaned dataset is stored in the notebook variable `final_df`.
+- After final validation passes, the cleaned dataset is written to `data/cleaned_dataset_FatemehDehghan224.xlsx`.
+- The notebook also displays assessment tables, audit logs, charts, and final validation results.
+- The exported workbook uses the `customers` sheet and preserves the raw workbook as read-only input.
 
-## ابزارها و کتابخانه ها
+## Requirements
+
+This project uses:
 
 - Python
 - pandas
@@ -33,175 +40,194 @@ project-01-data-cleaning-FatemehDehghan224/
 - matplotlib
 - JupyterLab
 
-نصب وابستگی ها:
+Install the dependencies with:
 
 ```powershell
 python -m pip install -r requirements.txt
 ```
 
-## روش اجرای پیشنهادی
+## How to Run
 
-نوت بوک زیر workflow اصلی و یکپارچه پروژه است و تمام مراحل شناسایی داده، ارزیابی کیفیت، پاکسازی، ثبت تغییرات و اعتبارسنجی نهایی را به ترتیب اجرا می کند:
+Open the main notebook:
 
 ```powershell
 jupyter lab clean_data_code\customer_data_cleaning_pipeline.ipynb
 ```
 
-پس از باز شدن نوت بوک، گزینه **Run All Cells** را اجرا و سپس خود نوت بوک را ذخیره کنید تا خروجی سلول ها داخل همان فایل باقی بماند.
+Then run all notebook cells in order. After the preprocessing and final validation cells pass, the cleaned Excel file is created at:
 
-## مشکلات شناسایی شده و تصمیم های پاکسازی
+```text
+data/cleaned_dataset_FatemehDehghan224.xlsx
+```
+
+Save the notebook so the generated tables, charts, and validation output remain visible in the file.
+
+## Data Cleaning Decisions
 
 ### 1. Missing Values
 
-دو مقدار خالی پیدا شد:
+Two missing values were identified:
 
-- ستون `age`
-- ستون `total_spending`
+- `age`
+- `total_spending`
 
-برای `age` مقدار خالی با median سن جایگزین شد، چون median برای داده عددی در برابر مقدارهای پرت مقاوم تر از mean است.
+The missing `age` value was imputed using the median age, because the median is more robust than the mean when numeric data may contain outliers.
 
-برای `total_spending` مقدار خالی با فرمول زیر محاسبه شد:
+The missing `total_spending` value was recalculated from related fields:
 
 ```text
 total_spending = round(purchase_count * avg_order_value, 3)
 ```
 
-دلیل این تصمیم این بود که `total_spending` یک ستون مشتق شده است و محاسبه مستقیم آن از ستون های مرتبط، دقیق تر از جایگزینی آماری است. نتیجه با دقت سه رقم اعشار محاسبه می شود.
+This approach was selected because `total_spending` is a derived value, so recalculating it from its source columns is more accurate than using a statistical imputation.
 
 ### 2. Duplicate Records
 
-یک رکورد کاملا تکراری شناسایی شد. چون تمام ستون های دو ردیف یکسان بودند، فقط اولین رکورد نگه داشته شد و رکورد تکراری حذف شد.
+One fully duplicated record was found. Because all values in the duplicated rows were identical, the first occurrence was kept and the duplicate row was removed.
 
-### 3. ناسازگاری `returned_items > purchase_count`
+### 3. Invalid Return Counts
 
-در چند ردیف مقدار `returned_items` از `purchase_count` بیشتر بود. از نظر منطقی تعداد آیتم های برگشتی نمی تواند بیشتر از تعداد خرید باشد.
+Some rows had `returned_items` values greater than `purchase_count`. This is not logically valid, because returned items cannot exceed purchased items.
 
-راه حل انتخاب شده:
+The correction rule was:
 
 ```text
 if returned_items > purchase_count:
     returned_items = purchase_count
 ```
 
-این روش انتخاب شد چون قانون منطقی داده را حفظ می کند، کل رکورد را حذف نمی کند و مقدار اصلاح شده همیشه با همان ردیف سازگار است.
+This keeps the record while enforcing the business rule at row level.
 
-### 4. Outlierهای ستون `total_spending`
+### 4. `total_spending` Outliers
 
-ستون `total_spending` با روش IQR بررسی شد. همه outlierها حذف یا cap نشدند، چون outlier بودن همیشه به معنی خطای داده نیست. برخی مشتریان واقعا خرید بالایی داشتند و این داده ها برای تحلیل فروش مهم هستند.
+The `total_spending` column was reviewed using the IQR method. Outliers were not automatically removed or capped, because high spending can represent valid high-value customers.
 
-برای هر outlier، مقدار `total_spending` با فرمول زیر کنترل شد:
+Each outlier was checked against the expected formula:
 
 ```text
 total_spending = round(purchase_count * avg_order_value, 3)
 ```
 
-فقط یک مقدار خطای واقعی داشت:
+Only one value was identified as a true calculation error:
 
 - `customer_id = 1030`
-- مقدار قبلی `total_spending = 25000`
-- مقدار اصلاح شده `total_spending = 4079.140`
+- Original `total_spending = 25000`
+- Corrected `total_spending = 4079.140`
 
-outlierهای معتبر که با فرمول سازگار بودند، بدون تغییر نگه داشته شدند.
+Formula-consistent outliers were kept unchanged.
 
-### 5. استانداردسازی دقت `total_spending`
+### 5. `total_spending` Precision
 
-مقادیر ستون `total_spending` باید در تمام مراحل پیش پردازش با دقت سه رقم اعشار محاسبه و نمایش داده شوند:
+All `total_spending` values are standardized to three decimal places:
 
 ```text
 total_spending = round(total_spending, 3)
 ```
 
-ستون همچنان از نوع عددی نگه داشته می شود تا برای محاسبات، تجمیع و مدل سازی قابل استفاده باشد. از آنجا که صفرهای انتهایی بخشی از مقدار عددی ذخیره شده نیستند، در نمایش نوت بوک از قالب `.3f` استفاده می شود؛ برای مثال مقدار عددی `2066.01` به صورت `2066.010` نمایش داده می شود. تابع `standardize_total_spending_precision` این قانون را اجرا می کند و اگر در دیتاست های آینده مقداری بیش از سه رقم اعشار داشته باشد، تغییر آن را در audit log ثبت می کند.
+The column remains numeric so it can still be used for calculations, aggregation, and modeling. Notebook display formatting is used when trailing zeroes need to be shown, such as displaying `2066.01` as `2066.010`.
 
-### 6. سن غیرمنطقی
+### 6. Invalid Age
 
-یک مقدار سن غیرمنطقی وجود داشت:
+One invalid age value was found:
 
 ```text
 age = 145
 ```
 
-این مقدار با median سن های معتبر جایگزین شد. سن معتبر در این پروژه به صورت بازه 13 تا 100 در نظر گرفته شد.
+For this project, valid ages are defined as values from 13 to 100. Invalid ages are replaced with the median of valid ages:
 
 ```text
 if age < 13 or age > 100:
     age = median(valid ages)
 ```
 
-### 7. استانداردسازی شهر و استان
+### 7. City and Province Standardization
 
-برای ستون های `city` و `province` فقط بررسی جداگانه کافی نیست، چون این دو ستون باید با هم سازگار باشند. راه حل انتخاب شده این است که یک مرجع صریح برای شهرهای موجود در دیتاست تعریف شود:
+The `city` and `province` columns are validated together, because each city must match its correct province. The notebook uses an explicit city-province reference, for example:
 
 ```text
 Mashhad -> Khorasan Razavi
 Rasht   -> Guilan
 Karaj   -> Alborz
-...
 ```
 
-تابع `assess_location_consistency` سه نوع مشکل را گزارش می کند:
+The location assessment checks for:
 
-- مقدار شهر یا استان که در مرجع شناخته نشده باشد.
-- spelling، casing یا alias شناخته شده، مثل `Gilan`، `Guilan` یا `Giluan`.
-- ناسازگاری بین شهر و استان، مثل شهری که به استان دیگری نسبت داده شده باشد.
+- Unknown cities or provinces.
+- Known spelling, casing, or alias variants, such as `Gilan`, `Guilan`, and `Giluan`.
+- Mismatches between a city and its assigned province.
 
-در این دیتاست 16 مقدار استان نیاز به استانداردسازی داشت. مقدار `Khorasan` برای ردیف های شهر `Mashhad` ناقص بود و به `Khorasan Razavi` استاندارد شد. مقدارهای `Gilan`، `Guilan` و `Giluan` به عنوان spelling variant یک استان در نظر گرفته شدند و spelling نهایی پروژه `Guilan` انتخاب شد. هر اصلاح در audit log با مقدار قبلی، مقدار جدید و قاعده مرجع ثبت می شود. اگر در دیتاست آینده شهر یا استان جدیدی دیده شود، pipeline به جای حدس زدن متوقف می شود تا reference به صورت دستی بررسی و به روز شود.
+In this dataset, 16 province values required standardization. For example, `Khorasan` was treated as incomplete for `Mashhad` and standardized to `Khorasan Razavi`. The final spelling selected for the Guilan province is `Guilan`.
 
-### 8. هماهنگ‌سازی نام و جنسیت
+Every location correction is recorded in the audit log with the original value, corrected value, and reference rule.
 
-در دیتاست 12 نام یکتا وجود دارد. نگاشت مرجع این نام‌ها در `clean_data_code/name_gender_mapping.json` نگهداری می‌شود:
+### 8. Name and Gender Alignment
 
-- مرد (`M`): `Ali`, `Amir`, `Arash`, `Parsa`, `Reza`, `Sina`
-- زن (`F`): `Kimia`, `Maryam`, `Mina`, `Neda`, `Sara`, `Zahra`
+The dataset contains 12 unique first names. The reviewed name-to-gender mapping is stored in `clean_data_code/name_gender_mapping.json`:
 
-نوت‌بوک هنگام اجرا JSON را بارگذاری می‌کند، کدهای جنسیت را به `M` و `F` محدود می‌کند و پوشش تمام نام‌های موجود را می‌سنجد. برای مقایسه، فاصله‌های اضافی و بزرگ/کوچک‌بودن حروف نادیده گرفته می‌شود، اما مقدار `first_name` تغییر نمی‌کند.
+- Male (`M`): `Ali`, `Amir`, `Arash`, `Parsa`, `Reza`, `Sina`
+- Female (`F`): `Kimia`, `Maryam`, `Mina`, `Neda`, `Sara`, `Zahra`
 
-پس از حذف رکورد تکراری، 38 ردیف با نگاشت مرجع مغایرت داشتند. مقدار `gender` این ردیف‌ها اصلاح و هر تغییر با مقدار قبلی، مقدار جدید و قاعده مرجع در audit log ثبت می‌شود. اگر در ورودی آینده نام جدیدی وجود داشته باشد، pipeline به‌جای حدس‌زدن جنسیت متوقف می‌شود تا JSON به‌صورت صریح به‌روز شود.
+The notebook loads this JSON file, validates that all current first names are covered, and corrects `gender` values when they conflict with the reference mapping. Names are compared after whitespace normalization and case-folding, but the original `first_name` value is not changed.
 
-### 9. تبدیل نوع تاریخ و کدگذاری عددی جنسیت
+After duplicate removal, 38 rows had gender values that conflicted with the reference mapping. These values were corrected and recorded in the audit log.
 
-ستون `signup_date` در فایل Excel به صورت `object`/رشته خوانده می‌شود. در مرحله نهایی پیش‌پردازش، این ستون با `pd.to_datetime` به نوع تاریخ‌محور pandas یعنی `datetime64` تبدیل می‌شود. اگر مقدار نامعتبر یا تاریخ آینده وجود داشته باشد، نوت‌بوک قبل از نهایی‌سازی متوقف می‌شود تا داده به‌صورت صریح بررسی شود.
+If a future dataset contains a new name that is not present in the JSON file, the pipeline stops instead of guessing the gender.
 
-ستون `gender` پس از اصلاح بر اساس نگاشت نام–جنسیت فقط دو مقدار معتبر دارد؛ بنابراین برای آماده‌سازی تحلیل و مدل‌سازی به مقدار عددی دودویی تبدیل می‌شود:
+### 9. Date Conversion and Binary Gender Encoding
+
+The `signup_date` column is converted from an object/string representation to the pandas datetime type:
+
+```text
+datetime64
+```
+
+Before finalization, the notebook checks for invalid or future signup dates.
+
+The corrected `gender` column is encoded as a binary numeric field for analysis and modeling:
 
 ```text
 F -> 0
 M -> 1
 ```
 
-در این پروژه مقدار `0` نشان‌دهنده زن (`F`) و مقدار `1` نشان‌دهنده مرد (`M`) است. این نگاشت در متغیر `GENDER_BINARY_MAPPING` داخل نوت‌بوک تعریف و جدول آن با نام `gender_binary_reference` نمایش داده می‌شود. پس از این مرحله، متغیر `final_df` شامل `signup_date` با dtype تاریخ و `gender` با dtype عدد صحیح و مقدارهای `0/1` است.
+This mapping is defined explicitly in the notebook through `GENDER_BINARY_MAPPING`.
 
-## وضعیت دیتاست نهایی
+## Final Dataset Status
 
-پس از پاکسازی:
+After cleaning:
 
-- Missing value وجود ندارد.
-- رکورد duplicate کامل وجود ندارد.
-- مقدار `returned_items > purchase_count` وجود ندارد.
-- مقدارهای `city` و `province` با مرجع شهر/استان پروژه سازگار هستند.
-- تمام نام‌ها در JSON مرجع پوشش داده شده‌اند و `gender` هر ردیف با نام آن سازگار است.
-- ستون `gender` در دیتاست نهایی به صورت دودویی کدگذاری شده است: `F = 0` و `M = 1`.
-- ستون `signup_date` در دیتاست نهایی از نوع `datetime64` است و دیگر `object`/رشته نیست.
-- ناسازگاری فرمولی در `total_spending` وجود ندارد.
-- تمام محاسبات و نمایش های `total_spending` از دقت سه رقم اعشار استفاده می کنند.
-- تاریخ های `signup_date` معتبر هستند و در آینده قرار ندارند.
-- ناسازگاری آشکار متنی مثل فاصله اضافی یا typo candidate خارج از قواعد شهر/استان پیدا نشد.
-- outlierهای معتبر حفظ شدند و فقط خطاهای واقعی اصلاح شدند.
+- There are no missing values.
+- There are no fully duplicated records.
+- `customer_id` values are unique.
+- There are no cases where `returned_items > purchase_count`.
+- `city` and `province` values are consistent with the reviewed location reference.
+- All names are covered by the JSON name-gender reference.
+- `gender` is consistent with `first_name` and encoded as `F = 0`, `M = 1`.
+- `signup_date` is stored as `datetime64`, not as an object/string column.
+- `total_spending` is formula-consistent.
+- `total_spending` calculations and displays use three-decimal precision.
+- Valid high-spending outliers are preserved.
+- Only confirmed data errors are corrected.
 
-## تفاوت نسخه اولیه و نهایی
+## Raw vs. Cleaned Dataset
 
-- تعداد ردیف ها از 61 به 60 رسید، چون یک رکورد کاملا تکراری حذف شد.
-- مقدارهای missing در `age` و `total_spending` اصلاح شدند.
-- مقدارهای غیرمنطقی در `returned_items` اصلاح شدند.
-- خطای محاسباتی `total_spending` اصلاح شد.
-- دقت عددی و نحوه نمایش `total_spending` روی سه رقم اعشار استاندارد شد.
-- مقدار سن غیرمنطقی اصلاح شد.
-- 16 مقدار استان مثل `Khorasan` و spelling variantهای `Gilan/Guilan/Giluan` بر اساس مرجع شهر/استان استاندارد شدند.
-- 38 مقدار ناسازگار `gender` بر اساس نگاشت نام–جنسیت اصلاح و در audit log ثبت شد.
-- ستون `signup_date` از `object`/رشته به `datetime64` تبدیل شد.
-- مقدارهای نهایی `gender` با نگاشت صریح `F = 0` و `M = 1` به عدد صحیح دودویی تبدیل شدند.
-- دیتاست خام بدون تغییر نگهداری می شود و دیتاست نهایی با نام متغیر `final_df` داخل نوت بوک نمایش داده می شود.
+Main changes from the raw dataset to the cleaned dataset:
 
-## نکته درباره outlierها
+- Row count changed from 61 to 60 after removing one fully duplicated record.
+- Missing values in `age` and `total_spending` were corrected.
+- Invalid `returned_items` values were corrected.
+- One incorrect `total_spending` calculation was corrected.
+- `total_spending` precision was standardized to three decimal places.
+- One invalid age value was corrected.
+- 16 province values were standardized using the city-province reference.
+- 38 gender values were corrected using the reviewed name-gender mapping.
+- `signup_date` was converted from object/string format to `datetime64`.
+- Final `gender` values were encoded as binary integers.
+- The cleaned dataset was exported to `data/cleaned_dataset_FatemehDehghan224.xlsx`.
 
-در این پروژه outlierهای معتبر حذف نشدند، چون برخی از آن ها نشان دهنده مشتریان پرخرج هستند. حذف این داده ها می توانست تحلیل فروش و ارزش مشتریان را دچار خطا کند.
+## Outlier Policy
+
+Outliers are reviewed before correction. In this project, valid outliers are preserved because they may represent high-value customers. Removing them could distort sales analysis and customer value insights.
+
+Only values that violate a clear formula, schema, or business rule are changed.
