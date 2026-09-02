@@ -6,14 +6,18 @@ First, the values in the different columns were examined. One **missing value (N
 
 In the `total_spending` column, one missing value (NaN) and one value inconsistent with the underlying calculation logic were identified. To validate this column, its values were compared with the result of `purchase_count × avg_order_value`, and the inconsistent values were corrected accordingly.
 
-### Data Consistency Checks
+### Gender Reference Dataset
+Several values in the gender column were inconsistent with the gender associated with the corresponding names. To validate these values, the names in the dataset were compared with a reference dataset containing Iranian names and their associated genders. For gender validation, a reliable dataset or name dictionary specific to the same country should be used, since naming patterns and gender associations vary across countries.
 
-Several values in the `gender` column were inconsistent with the gender associated with the corresponding names. To validate these values, the names in the dataset were compared with a reference dataset containing Iranian names and their associated genders. The records whose recorded gender differed from the reference were identified and corrected. Names that were not available in the reference dataset, such as Kimia, could not be automatically validated, so Kimia records were manually reviewed and their gender values were corrected to `f`.
+The gender reference dataset was obtained from the [Persian Gender Detection by Name] (https://github.com/farbodbj/persian-gender-by-name) repository. The reference data was used only to generate a `suggested_gender` value and flag potential inconsistencies. The original `gender` values were not automatically modified, since name-based gender classification is not necessarily definitive.
 
-Initially, records where `purchase_count` was equal to zero while `returned_items` was greater than zero appeared to be inconsistent. However, after further investigation, it was determined that returned items were not included in the final purchase count. Therefore, cases such as `purchase_count = 0` and `returned_items > 0` were considered logically valid and were not treated as errors.
+### Purchase and Spending Validation
+Records with zero purchases but a positive average order value were flagged for review. These cases may potentially be explained by returned items being excluded from purchase totals while their associated order values remain recorded. However, this is only a possible explanation and is not treated as a confirmed business rule. No values were automatically modified.
+
+### Returned Items Validation
+Records where the number of returned items exceeded the number of purchases were also flagged for review, rather than being automatically corrected.
 
 ### Duplicate Records
-
 Duplicate records were checked using `duplicated().sum()`. One duplicate record was identified and removed.
 
 ### Data Types
