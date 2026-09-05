@@ -1,4 +1,0 @@
-﻿step,excel_row,customer_id,column,old_value,new_value,reason
-fill_missing_age,21,1020,age,,45.0,Missing age was replaced with the median age because median is robust for numeric demographic data.
-fill_missing_total_spending,41,1040,total_spending,,1280.44,Missing total_spending was recalculated from purchase_count * avg_order_value.
-remove_full_duplicate_row,62,1014,all_columns,full duplicate row,removed,"The full record was duplicated, so only the first occurrence was kept."

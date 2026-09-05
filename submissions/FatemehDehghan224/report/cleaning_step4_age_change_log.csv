@@ -1,2 +1,0 @@
-﻿step,excel_row_after_step3,customer_id,old_age,new_age,median_rule,reason
-replace_invalid_age_with_valid_age_median,11,1010,145,45.0,median of valid ages between 13 and 100,Age outside the valid human range was treated as a data-entry error and replaced with the valid-age median.
