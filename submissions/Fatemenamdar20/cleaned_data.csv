@@ -1,0 +1,59 @@
+customer_id,first_name,gender,age,city,province,signup_date,membership_tier,purchase_count,avg_order_value,total_spending,last_purchase_days,payment_method,device,discount_used,returned_items,satisfaction_score
+1001,Reza,F,19,Karaj,Alborz,2025-02-19,VIP,17,121.53,2066.01,16,Card,Android,1,3,5
+1002,Sina,M,53,Tehran,Tehran,2022-08-19,Gold,12,326.47,3917.64,3,Card,Web,0,5,3
+1003,Parsa,F,31,Shiraz,Fars,2023-06-20,Gold,21,59.46,1248.66,22,Online Wallet,iPhone,1,6,1
+1004,Sina,F,58,Mashhad,Khorasan,2021-11-08,Gold,23,266.15,6121.45,40,Card,Android,0,4,4
+1005,Kimia,M,28,Isfahan,Isfahan,2021-10-21,Silver,23,169.54,3899.42,273,Online Wallet,Android,1,7,4
+1006,Amir,F,58,Mashhad,Khorasan,2022-01-26,Gold,35,110.53,3868.55,205,Cash,Android,1,5,2
+1007,Reza,F,43,Rasht,Gilan,2025-09-09,VIP,29,77.15,2237.35,298,Cash,iPhone,1,2,5
+1008,Reza,F,23,Rasht,Gilan,2024-10-03,VIP,3,389.58,1168.74,195,Online Wallet,iPhone,0,8,1
+1009,Kimia,M,61,Karaj,Alborz,2021-05-14,Silver,34,341.63,11615.42,232,Card,Web,0,8,2
+1010,Arash,F,45,Karaj,Alborz,2022-06-25,Silver,19,381.13,7241.47,276,Online Wallet,Android,0,7,1
+1011,Neda,F,41,Karaj,Alborz,2021-12-16,Bronze,19,119.16,2264.04,272,Card,Android,0,8,2
+1012,Arash,F,51,Mashhad,Khorasan,2023-07-22,Gold,27,434.5,11731.5,224,Online Wallet,iPhone,1,3,2
+1013,Neda,F,39,Karaj,Alborz,2021-02-23,Bronze,1,270.91,270.91,117,Card,Android,0,1,5
+1014,Reza,M,35,Tabriz,East Azerbaijan,2022-08-26,VIP,31,108.19,3353.89,97,Card,Android,0,5,4
+1015,Kimia,F,47,Ahvaz,Khuzestan,2021-07-24,Gold,3,307.91,923.73,55,Card,Android,1,8,4
+1016,Neda,F,45,Shiraz,Fars,2024-09-04,Bronze,11,136.17,1497.87,333,Online Wallet,Android,1,3,2
+1017,Parsa,F,49,Ahvaz,Khuzestan,2022-07-01,VIP,30,107.98,3239.4,135,Cash,iPhone,0,8,4
+1018,Ali,F,30,Shiraz,Fars,2023-01-02,VIP,18,109.7,1974.6,257,Online Wallet,Android,1,8,1
+1019,Neda,M,22,Shiraz,Fars,2021-10-08,Bronze,4,308.72,1234.88,317,Card,iPhone,0,4,2
+1021,Amir,F,50,Tabriz,East Azerbaijan,2022-06-10,Silver,16,72.62,1161.92,224,Online Wallet,Web,0,8,1
+1022,Reza,M,60,Mashhad,Khorasan,2021-02-24,Silver,6,423.43,2540.58,139,Cash,Web,1,5,2
+1023,Ali,F,50,Mashhad,Khorasan,2024-05-02,Bronze,31,124.24,3851.44,170,Card,Web,0,2,4
+1025,Neda,F,41,Mashhad,Khorasan,2021-06-25,VIP,2,406.03,812.06,317,Online Wallet,Android,1,2,2
+1026,Amir,M,19,Ahvaz,Khuzestan,2022-05-06,Bronze,11,335.41,3689.51,195,Card,iPhone,1,3,4
+1027,Kimia,F,37,Isfahan,Isfahan,2024-06-09,Bronze,14,111.97,1567.58,142,Cash,Web,0,8,3
+1028,Mina,F,25,Tehran,Tehran,2021-10-14,Gold,16,92.68,1482.88,160,Cash,Web,1,6,5
+1029,Ali,F,34,Tabriz,East Azerbaijan,2023-07-03,Gold,2,323.32,646.64,319,Cash,Web,1,4,5
+1030,Sina,M,60,Mashhad,Khorasan,2025-03-07,VIP,26,156.89,4079.14,340,Cash,Web,1,4,4
+1031,Zahra,M,37,Tehran,Tehran,2024-08-15,Silver,18,106.43,1915.74,261,Cash,Web,1,1,3
+1032,Neda,F,23,Isfahan,Isfahan,2022-01-02,Silver,15,307.67,4615.05,243,Online Wallet,Android,0,6,5
+1033,Neda,F,63,Tabriz,East Azerbaijan,2021-02-25,VIP,24,230.05,5521.2,112,Card,Web,0,0,5
+1034,Maryam,M,25,Tabriz,East Azerbaijan,2024-10-27,VIP,29,73.0,2117.0,280,Cash,Android,0,7,3
+1035,Arash,M,58,Tabriz,East Azerbaijan,2022-05-15,Bronze,17,348.13,5918.21,365,Cash,Android,0,5,3
+1036,Sina,F,26,Karaj,Alborz,2022-02-14,VIP,9,115.6,1040.4,169,Online Wallet,iPhone,0,0,2
+1037,Zahra,M,42,Ahvaz,Khuzestan,2024-01-12,Gold,1,387.68,387.68,199,Cash,Web,1,7,2
+1038,Amir,M,45,Mashhad,Khorasan,2022-08-05,Bronze,31,27.63,856.53,201,Online Wallet,Web,1,1,4
+1039,Parsa,M,47,Shiraz,Fars,2022-08-11,Gold,11,36.87,405.57,194,Cash,iPhone,0,1,4
+1040,Amir,F,65,Tehran,Tehran,2021-11-02,Bronze,34,37.66,1280.44,126,Card,Android,1,3,2
+1041,Neda,M,60,Rasht,Gilan,2023-06-06,Bronze,7,260.33,1822.31,83,Cash,Android,1,4,5
+1042,Sina,F,43,Ahvaz,Khuzestan,2021-12-25,Gold,12,48.06,576.72,350,Online Wallet,Android,1,5,5
+1043,Kimia,M,60,Ahvaz,Khuzestan,2021-07-27,VIP,23,45.0,1035.0,54,Cash,iPhone,0,2,4
+1044,Mina,M,64,Shiraz,Fars,2024-07-27,Gold,33,434.98,14354.34,165,Card,Android,0,7,2
+1045,Maryam,M,54,Rasht,Gilan,2022-08-07,Gold,24,161.33,3871.92,132,Cash,iPhone,0,8,1
+1046,Maryam,F,23,Tabriz,East Azerbaijan,2024-11-23,VIP,15,328.23,4923.45,229,Card,Android,0,3,4
+1047,Arash,M,37,Tabriz,East Azerbaijan,2024-12-18,Gold,23,220.87,5080.01,180,Online Wallet,iPhone,0,4,3
+1048,Sina,F,25,Tabriz,East Azerbaijan,2022-04-24,VIP,12,152.26,1827.12,141,Online Wallet,Web,0,1,2
+1049,Ali,F,32,Mashhad,Khorasan,2023-01-02,Gold,23,93.06,2140.38,357,Card,Web,0,1,1
+1050,Reza,F,48,Mashhad,Khorasan,2023-08-04,Bronze,30,206.6,6198.0,205,Cash,Android,1,2,2
+1051,Parsa,F,23,Mashhad,Khorasan,2025-07-15,VIP,15,66.53,997.95,152,Online Wallet,iPhone,0,0,5
+1052,Sara,F,31,Karaj,Alborz,2022-03-18,Bronze,13,130.12,1691.56,80,Card,iPhone,0,7,3
+1053,Sina,M,32,Tehran,Tehran,2021-11-08,Gold,18,322.53,5805.54,320,Online Wallet,Web,1,6,1
+1054,Reza,F,59,Tabriz,East Azerbaijan,2021-03-26,Gold,9,410.16,3691.44,304,Online Wallet,Web,0,7,1
+1055,Mina,M,62,Rasht,Gilan,2024-02-20,Bronze,19,319.38,6068.22,221,Online Wallet,iPhone,0,0,1
+1056,Kimia,M,61,Tabriz,East Azerbaijan,2025-01-25,Silver,1,449.81,449.81,240,Online Wallet,Web,0,4,2
+1057,Maryam,M,58,Ahvaz,Khuzestan,2024-06-11,Bronze,31,436.54,13532.74,82,Cash,iPhone,0,4,4
+1058,Amir,F,47,Tehran,Tehran,2024-09-27,Bronze,5,151.81,759.05,336,Online Wallet,iPhone,0,0,2
+1059,Ali,F,57,Isfahan,Isfahan,2023-09-05,Gold,31,287.05,8898.55,224,Online Wallet,iPhone,1,0,5
+1060,Ali,M,63,Tabriz,East Azerbaijan,2021-04-27,Bronze,10,150.18,1501.8,236,Card,Web,1,7,3
